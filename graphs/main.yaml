@@ -1,0 +1,20 @@
+inputs: []
+outputs:
+  files: list_files.files
+nodes:
+  auth:
+    inputs:
+      redirect_uri: urn:ietf:wg:oauth:2.0:oob
+    outputs:
+      - access_token
+      - refresh_token
+      - expires_in
+      - token_type
+    provider: hex-backup.auth
+  list_files:
+    inputs:
+      token: auth.access_token
+      path: . 
+    outputs:
+      - files
+    provider: hex-backup.list_files
