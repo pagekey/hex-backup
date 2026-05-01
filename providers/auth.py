@@ -78,7 +78,7 @@ def run(inputs: dict[str, str]) -> dict[str, str]:
     url, code_verifier = generate_url(client_id, redirect_uri, scope)
 
     code = ui_input(
-        f'Click <a style="color: blue; text-decoration: underline;" target="_blank" href="{url}">here</a>. Then, paste the code: '
+        f'Click <a style="color: lightblue; text-decoration: underline;" target="_blank" href="{url}">here</a>. Then, paste the code: '
     )
 
     creds = generate_token(code, redirect_uri, client_id, client_secret, code_verifier)
