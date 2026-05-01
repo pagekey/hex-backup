@@ -7,6 +7,15 @@ import hashlib
 import base64
 
 
+def ui_input(prompt: str) -> str:
+    url = "http://127.0.0.1:8000/api/graphs/request_input"
+    payload = {"prompt": prompt}
+    response = requests.post(url, json=payload)
+    response.raise_for_status()
+    response_json = response.json()
+    return response_json.get("response")
+
+
 def generate_url(client_id, redirect_uri, scope):
     state = secrets.token_urlsafe(32)
     code_verifier = secrets.token_urlsafe(64)
@@ -69,7 +78,7 @@ def run(inputs: dict[str, str]) -> dict[str, str]:
     url, code_verifier = generate_url(client_id, redirect_uri, scope)
 
     print(f"Visit the following url: {url}")
-    code = input("Paste the code: ")
+    code = ui_input("Paste the code: ")
 
     creds = generate_token(code, redirect_uri, client_id, client_secret, code_verifier)
 
