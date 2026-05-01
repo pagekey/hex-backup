@@ -1,6 +1,11 @@
 inputs: []
-outputs: {}
+outputs:
+  report: save_files.report
 nodes:
+  config:
+    inputs: {}
+    outputs: [src_folder, dst_folder]
+    provider: hex-backup.config
   auth:
     inputs:
       redirect_uri: urn:ietf:wg:oauth:2.0:oob
@@ -17,8 +22,20 @@ nodes:
     outputs:
       - files
     provider: hex-backup.list_files
+  read_files:
+    inputs:
+      token: auth.access_token
+      files: list_files.files
+    outputs: [files_content]
+    provider: hex-backup.read_files
   echo_files:
     inputs:
-      files: list_files.files
+      files: read_files.files_content
     outputs: []
     provider: hex-backup.echo_files
+  save_files:
+    inputs:
+      files_content: read_files.files_content
+      dst_folder: config.dst_folder
+    outputs: [report]
+    provider: hex-backup.save_files
