@@ -78,7 +78,7 @@ def run(inputs: dict[str, str]) -> dict[str, str]:
     url, code_verifier = generate_url(client_id, redirect_uri, scope)
 
     print(f"Visit the following url: {url}")
-    code = ui_input("Paste the code: ")
+    code = ui_input(f"Visit the following url: {url}. Paste the code: ")
 
     creds = generate_token(code, redirect_uri, client_id, client_secret, code_verifier)
 
