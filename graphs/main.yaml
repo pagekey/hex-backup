@@ -1,6 +1,5 @@
 inputs: []
-outputs:
-  files: list_files.files
+outputs: {}
 nodes:
   auth:
     inputs:
@@ -14,7 +13,12 @@ nodes:
   list_files:
     inputs:
       token: auth.access_token
-      path: . 
+      path: BackMeUp
     outputs:
       - files
     provider: hex-backup.list_files
+  echo_files:
+    inputs:
+      files: list_files.files
+    outputs: []
+    provider: hex-backup.echo_files

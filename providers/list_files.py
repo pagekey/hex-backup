@@ -53,9 +53,16 @@ def run(inputs: dict[str, str]) -> dict[str, str]:
             exit(1)
 
         files = response.json().get("files", [])
-        names = [f.get("name") for f in files]
 
-        return {"files": names}
+        files_checked = [
+            {
+                "mimeType": f.get("mimeType"),
+                "id": f.get("id"),
+                "name": f.get("name"),
+            }
+            for f in files
+        ]
+        return {"files": files_checked}
 
     except Exception as e:
         print(f"Error listing Drive files: {e}")
