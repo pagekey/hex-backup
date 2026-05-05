@@ -28,11 +28,6 @@ nodes:
       files: list_files.files
     outputs: [files_content]
     provider: hex-backup.read_files
-  echo_files:
-    inputs:
-      files: read_files.files_content
-    outputs: []
-    provider: hex-backup.echo_files
   save_files:
     inputs:
       files_content: read_files.files_content

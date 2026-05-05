@@ -1,0 +1,22 @@
+inputs: [src_folder, dst_folder, token]
+outputs: {}
+nodes:
+  list_files:
+    inputs:
+      token: root.token
+      path: root.src_folder
+    outputs:
+      - files
+    provider: hex-backup.list_files
+  read_files:
+    inputs:
+      token: root.token
+      files: list_files.files
+    outputs: [files_content]
+    provider: hex-backup.read_files
+  save_files:
+    inputs:
+      files_content: read_files.files_content
+      dst_folder: config.dst_folder
+    outputs: [report]
+    provider: hex-backup.save_files

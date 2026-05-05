@@ -1,0 +1,20 @@
+import requests
+
+
+def ui_input(prompt: str) -> str:
+    url = "http://127.0.0.1:8000/api/graphs/request_input"
+    payload = {"prompt": prompt}
+    response = requests.post(url, json=payload)
+    response.raise_for_status()
+    response_json = response.json()
+    return response_json.get("response")
+
+
+def run(inputs: dict[str, str]) -> dict[str, str]:
+    return {
+        "src_folder": ui_input("Enter Google Drive folder to back up: "),
+        "dst_folder": ui_input("Enter local folder path to store backup: "),
+        "daily_time": ui_input(
+            "Enter daily time to back up (military time, e.g. 14:00 == 2 pm, 05:00 == 5 am): "
+        ),
+    }
