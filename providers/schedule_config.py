@@ -4,7 +4,7 @@ from hex import Params
 
 def ui_input(prompt: str) -> str:
     url = "http://127.0.0.1:8000/api/graphs/request_input"
-    payload = {"prompt": prompt}
+    payload = {"prompt": prompt, "secure": False}
     response = requests.post(url, json=payload)
     response.raise_for_status()
     response_json = response.json()
