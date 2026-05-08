@@ -72,8 +72,8 @@ def run(inputs: dict[str, str]) -> dict[str, str]:
     client_id = os.getenv("GOOGLE_OAUTH_CLIENT_ID")
     client_secret = os.getenv("GOOGLE_OAUTH_CLIENT_SECRET")
 
-    scope = "https://www.googleapis.com/auth/drive"
-    # scope = "https://www.googleapis.com/auth/drive.readonly"  # uncomment to use readonly scope
+    # scope = "https://www.googleapis.com/auth/drive"
+    scope = "https://www.googleapis.com/auth/drive.readonly"  # uncomment to use readonly scope
 
     url, code_verifier = generate_url(client_id, redirect_uri, scope)
 
