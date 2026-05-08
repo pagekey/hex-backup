@@ -10,11 +10,11 @@ nodes:
       - refresh_token
       - expires_in
       - token_type
-    provider: hex-backup.auth
+    provider: hexmod-backup.auth
   schedule_config:
     inputs: {}
     outputs: [src_folder, dst_folder, daily_time]
-    provider: hex-backup.schedule_config
+    provider: hexmod-backup.schedule_config
   schedule:
     inputs:
       src_folder: schedule_config.src_folder
@@ -22,4 +22,4 @@ nodes:
       daily_time: schedule_config.daily_time
       token: auth.access_token
     outputs: [report]
-    provider: hex-backup.schedule
+    provider: hexmod-backup.schedule

@@ -7,16 +7,16 @@ nodes:
       path: root.src_folder
     outputs:
       - files
-    provider: hex-backup.list_files
+    provider: hexmod-backup.list_files
   read_files:
     inputs:
       token: root.token
       files: list_files.files
     outputs: [files_content]
-    provider: hex-backup.read_files
+    provider: hexmod-backup.read_files
   save_files:
     inputs:
       files_content: read_files.files_content
       dst_folder: root.dst_folder
     outputs: [report]
-    provider: hex-backup.save_files
+    provider: hexmod-backup.save_files

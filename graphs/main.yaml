@@ -5,7 +5,7 @@ nodes:
   config:
     inputs: {}
     outputs: [src_folder, dst_folder]
-    provider: hex-backup.config
+    provider: hexmod-backup.config
   auth:
     inputs:
       redirect_uri: https://tryhexbox.com/callback
@@ -14,23 +14,23 @@ nodes:
       - refresh_token
       - expires_in
       - token_type
-    provider: hex-backup.auth
+    provider: hexmod-backup.auth
   list_files:
     inputs:
       token: auth.access_token
       path: BackMeUp
     outputs:
       - files
-    provider: hex-backup.list_files
+    provider: hexmod-backup.list_files
   read_files:
     inputs:
       token: auth.access_token
       files: list_files.files
     outputs: [files_content]
-    provider: hex-backup.read_files
+    provider: hexmod-backup.read_files
   save_files:
     inputs:
       files_content: read_files.files_content
       dst_folder: config.dst_folder
     outputs: [report]
-    provider: hex-backup.save_files
+    provider: hexmod-backup.save_files
