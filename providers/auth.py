@@ -1,5 +1,7 @@
 import os
 
+from hex import Params
+
 import requests
 import secrets
 import urllib.parse
@@ -67,8 +69,8 @@ def generate_token(code, redirect_uri, client_id, client_secret, code_verifier):
     }
 
 
-def run(inputs: dict[str, str]) -> dict[str, str]:
-    redirect_uri = inputs["redirect_uri"]
+def run(params: Params) -> dict[str, str]:
+    redirect_uri = params.inputs["redirect_uri"]
     client_id = os.getenv("GOOGLE_OAUTH_CLIENT_ID")
     client_secret = os.getenv("GOOGLE_OAUTH_CLIENT_SECRET")
 

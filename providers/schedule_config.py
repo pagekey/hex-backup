@@ -1,4 +1,5 @@
 import requests
+from hex import Params
 
 
 def ui_input(prompt: str) -> str:
@@ -10,7 +11,7 @@ def ui_input(prompt: str) -> str:
     return response_json.get("response")
 
 
-def run(inputs: dict[str, str]) -> dict[str, str]:
+def run(params: Params) -> dict[str, str]:
     return {
         "src_folder": ui_input("Enter Google Drive folder to back up: "),
         "dst_folder": ui_input("Enter local folder path to store backup: "),

@@ -1,4 +1,5 @@
 import requests
+from hex import Params
 
 
 def get_file(file_id: str, mime_type: str, token: str) -> str:
@@ -30,9 +31,9 @@ def get_file(file_id: str, mime_type: str, token: str) -> str:
         exit(1)
 
 
-def run(inputs: dict[str, str]) -> dict[str, str]:
-    token = inputs["token"]
-    files = inputs["files"]
+def run(params: Params) -> dict[str, str]:
+    token = params.inputs["token"]
+    files = params.inputs["files"]
     files_content = [
         {
             "mimeType": f.get("mimeType"),

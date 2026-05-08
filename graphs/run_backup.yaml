@@ -17,6 +17,6 @@ nodes:
   save_files:
     inputs:
       files_content: read_files.files_content
-      dst_folder: config.dst_folder
+      dst_folder: root.dst_folder
     outputs: [report]
     provider: hex-backup.save_files

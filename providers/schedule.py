@@ -1,17 +1,18 @@
 import shutil
 import subprocess
+from hex import Params
 
 
-def run(inputs: dict[str, str]) -> dict[str, str]:
-    src_folder = inputs["src_folder"]
-    dst_folder = inputs["dst_folder"]
-    daily_time = inputs["daily_time"]
-    token = inputs["token"]
+def run(params: Params) -> dict[str, str]:
+    src_folder = params.inputs["src_folder"]
+    dst_folder = params.inputs["dst_folder"]
+    daily_time = params.inputs["daily_time"]
+    token = params.inputs["token"]
     hour, minute = daily_time.split(":")
 
     hex_path = shutil.which("hex") or "/usr/local/bin/hex"
 
-    full_command = f"{hex_path} run hex-backup.run_backup -i src_folder={src_folder} -i dst_folder={dst_folder} -i token={token}".strip()  # TODO: add -w for workspace.
+    full_command = f"{hex_path} run hex-backup.run_backup -i src_folder={src_folder} -i dst_folder={dst_folder} -i token={token} -w {str(params.workspace.resolve())}".strip()
 
     cron_entry = f"{minute} {hour} * * * {full_command} # HEX_JOB:backup"
 

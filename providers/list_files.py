@@ -1,4 +1,5 @@
 import requests
+from hex import Params
 
 
 def get_folder_id_by_name(name, token):
@@ -20,9 +21,9 @@ def get_folder_id_by_name(name, token):
     return files[0]["id"]
 
 
-def run(inputs: dict[str, str]) -> dict[str, str]:
-    token = inputs["token"]
-    path = inputs["path"]
+def run(params: Params) -> dict[str, str]:
+    token = params.inputs["token"]
+    path = params.inputs["path"]
 
     url = "https://www.googleapis.com/drive/v3/files"
 
