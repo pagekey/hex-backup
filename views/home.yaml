@@ -1,0 +1,10 @@
+title: "Home - Backups2"
+
+layout:
+  - type: label
+    text: "Hello from HexBox2"
+
+  - type: button
+    text: "Run Graph2"
+    on_click:
+      graph: my_graph_id
