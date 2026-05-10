@@ -1,8 +1,10 @@
-inputs: [src_folder, dst_folder, refresh_token]
+inputs: [src_folder, dst_folder, client_id, client_secret, refresh_token]
 outputs: {}
 nodes:
   get_access_token:
     inputs:
+      client_id: root.client_id
+      client_secret: root.client_secret
       refresh_token: root.refresh_token
     outputs:
       - access_token
