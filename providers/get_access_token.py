@@ -19,6 +19,7 @@ def run(params: Params) -> dict[str, str]:
             "grant_type": "refresh_token",
         },
     )
+    print(response.content)
     response.raise_for_status()
 
     response_json = response.json()
