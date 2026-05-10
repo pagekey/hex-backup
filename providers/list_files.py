@@ -2,9 +2,9 @@ import requests
 from hex import Params
 
 
-def get_folder_id_by_name(name, token):
+def get_folder_id_by_name(name, access_token):
     url = "https://www.googleapis.com/drive/v3/files"
-    headers = {"Authorization": f"Bearer {token}"}
+    headers = {"Authorization": f"Bearer {access_token}"}
 
     params = {
         "q": f"name = '{name}' and mimeType = 'application/vnd.google-apps.folder' and trashed = false",
@@ -22,13 +22,13 @@ def get_folder_id_by_name(name, token):
 
 
 def run(params: Params) -> dict[str, str]:
-    token = params.inputs["token"]
+    access_token = params.inputs["access_token"]
     path = params.inputs["path"]
 
     url = "https://www.googleapis.com/drive/v3/files"
 
     headers = {
-        "Authorization": f"Bearer {token}",
+        "Authorization": f"Bearer {access_token}",
     }
 
     params = {
@@ -39,7 +39,7 @@ def run(params: Params) -> dict[str, str]:
     q_parts = ["trashed = false"]
 
     if path and not path.startswith("1"):
-        path = get_folder_id_by_name(path, token)
+        path = get_folder_id_by_name(path, access_token)
 
     if path:
         q_parts.append(f"'{path}' in parents")

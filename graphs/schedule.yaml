@@ -20,6 +20,6 @@ nodes:
       src_folder: schedule_config.src_folder
       dst_folder: schedule_config.dst_folder
       daily_time: schedule_config.daily_time
-      token: auth.access_token
+      refresh_token: auth.refresh_token
     outputs: [report]
     provider: hexmod-backup.schedule

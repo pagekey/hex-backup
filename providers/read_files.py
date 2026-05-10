@@ -2,9 +2,9 @@ import requests
 from hex import Params
 
 
-def get_file(file_id: str, mime_type: str, token: str) -> str:
+def get_file(file_id: str, mime_type: str, access_token: str) -> str:
     headers = {
-        "Authorization": f"Bearer {token}",
+        "Authorization": f"Bearer {access_token}",
     }
 
     try:
@@ -32,14 +32,14 @@ def get_file(file_id: str, mime_type: str, token: str) -> str:
 
 
 def run(params: Params) -> dict[str, str]:
-    token = params.inputs["token"]
+    access_token = params.inputs["access_token"]
     files = params.inputs["files"]
     files_content = [
         {
             "mimeType": f.get("mimeType"),
             "id": f.get("id"),
             "name": f.get("name"),
-            "content": get_file(f.get("id"), f.get("mimeType"), token),
+            "content": get_file(f.get("id"), f.get("mimeType"), access_token),
         }
         for f in files
     ]
