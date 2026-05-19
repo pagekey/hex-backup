@@ -4,44 +4,15 @@ layout:
   - type: label
     text: "Welcome to backups. Most people will just want to schedule a backup:"
 
-  - type: label
-    id: time
-    text: "05:00"
-
   - type: button
     text: "Schedule a Backup"
     on_click:
-      graph: hexmod-backup.run_backup
-      inputs:
-        src_folder: user
-        dst_folder: backups
-      outputs:
-        message: view.result
+      view: hexmod-backup.schedule
 
   - type: label
     text: "You can also just back up once right now:"
 
   - type: button
-    text: "Run Backup (Guided)"
+    text: "Run Backup Now"
     on_click:
-      graph: hexmod-backup.main
-      inputs:
-        input1: user
-      outputs:
-        output2: view.label1
-
-  - type: label
-    text: "If you really know what you're doing, go ahead and manually run a backup:"
-
-  - type: button
-    text: "Run Backup (Manual)"
-    on_click:
-      graph: hexmod-backup.run_backup
-      inputs:
-        input1: user
-      outputs:
-        output2: view.label1
-
-  - type: label
-    id: result
-    text: ""
+      view: hexmod-backup.run

@@ -1,0 +1,21 @@
+title: "Schedule Backup"
+
+effects: []
+
+layout:
+  - type: button
+    text: Back
+    on_click:
+      view: hexmod-backup.home
+
+  - type: label
+    text: Use the button below to schedule a backup.
+
+  - type: button
+    text: "Schedule a Backup"
+    on_click:
+      graph:
+        id: hexmod-backup.run_backup
+        inputs:
+          src_folder: user
+          dst_folder: backups

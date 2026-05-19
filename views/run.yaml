@@ -1,0 +1,35 @@
+title: "Run Backup"
+
+effects: []
+
+layout:
+  - type: button
+    text: Back
+    on_click:
+      view: hexmod-backup.home
+
+  - type: label
+    text: Use the button below to run a backup.
+
+  - type: button
+    text: "Run Backup (Guided)"
+    on_click:
+      graph:
+        id: hexmod-backup.main
+        inputs:
+          input1: user
+
+  - type: label
+    text: "If you really know what you're doing, go ahead and manually run a backup:"
+
+  - type: button
+    text: "Run Backup (Manual)"
+    on_click:
+      graph:
+        id: hexmod-backup.run_backup
+        inputs:
+          input1: user
+
+  - type: label
+    id: result
+    text: ""
