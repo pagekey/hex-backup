@@ -11,11 +11,20 @@ layout:
   - type: label
     text: Use the button below to schedule a backup.
 
+  - type: text-field
+    id: txtSource
+    label: Source folder (in Google Drive)
+
+  - type: text-field
+    id: txtDestination
+    label: Local destination folder
+
+
   - type: button
-    text: "Schedule a Backup"
+    text: "Schedule"
     on_click:
       graph:
         id: hexmod-backup.run_backup
         inputs:
-          src_folder: user
-          dst_folder: backups
+          src_folder: id:txtSource
+          dst_folder: id:txtDestination

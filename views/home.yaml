@@ -5,6 +5,24 @@ layout:
     text: "Welcome to backups. Most people will just want to schedule a backup:"
 
   - type: button
+    text: "Show Tokens"
+    on_click:
+      graph:
+        id: hexmod-backup.show_tokens
+        inputs:
+          src_folder: id:txtSource
+          dst_folder: id:txtDestination
+
+  - type: label
+    text: graph:hexmod-backup.show_tokens:client_id
+
+  - type: label
+    text: graph:hexmod-backup.show_tokens:client_secret
+
+  - type: label
+    text: If the above tokens are not set, you must authorize.
+
+  - type: button
     text: "Schedule a Backup"
     on_click:
       view: hexmod-backup.schedule
