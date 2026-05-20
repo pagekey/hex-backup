@@ -3,6 +3,7 @@ outputs:
   secrets_path: auth_write.secrets_path
 nodes:
   auth:
+    provider: hexmod-backup.auth:run
     inputs:
       redirect_uri: https://tryhexbox.com/callback
     outputs:
@@ -10,10 +11,9 @@ nodes:
       - refresh_token
       - expires_in
       - token_type
-    provider: hexmod-backup.auth
   auth_write:
+    provider: hexmod-backup.auth_write:run
     inputs:
       refresh_token: auth.refresh_token
     outputs:
       - secrets_path
-    provider: hexmod-backup.auth_write

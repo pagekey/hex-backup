@@ -3,9 +3,9 @@ outputs:
   report: schedule.report
 nodes:
   schedule:
+    provider: hexmod-backup.schedule:run
     inputs:
       src_folder: root.src_folder
       dst_folder: root.dst_folder
       daily_time: root.daily_time
     outputs: [report]
-    provider: hexmod-backup.schedule

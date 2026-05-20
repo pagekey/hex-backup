@@ -2,14 +2,14 @@ inputs: [src_folder, dst_folder]
 outputs: {}
 nodes:
   auth_read:
-    provider: hexmod-backup.auth_read
+    provider: hexmod-backup.auth_read:run
     inputs: {}
     outputs:
       - client_id
       - client_secret
       - refresh_token
   get_access_token:
-    provider: hexmod-backup.get_access_token
+    provider: hexmod-backup.get_access_token:run
     inputs:
       client_id: auth_read.client_id
       client_secret: auth_read.client_secret
@@ -17,21 +17,21 @@ nodes:
     outputs:
       - access_token
   list_files:
+    provider: hexmod-backup.list_files:run
     inputs:
       access_token: get_access_token.access_token
       path: root.src_folder
     outputs:
       - files
-    provider: hexmod-backup.list_files
   read_files:
+    provider: hexmod-backup.read_files:run
     inputs:
       access_token: get_access_token.access_token
       files: list_files.files
     outputs: [files_content]
-    provider: hexmod-backup.read_files
   save_files:
+    provider: hexmod-backup.save_files:run
     inputs:
       files_content: read_files.files_content
       dst_folder: root.dst_folder
     outputs: [report]
-    provider: hexmod-backup.save_files

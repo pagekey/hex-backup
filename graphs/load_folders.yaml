@@ -3,14 +3,14 @@ outputs:
   files: list_files.files
 nodes:
   auth_read:
-    provider: hexmod-backup.auth_read
+    provider: hexmod-backup.auth_read:run
     inputs: {}
     outputs:
       - client_id
       - client_secret
       - refresh_token
   get_access_token:
-    provider: hexmod-backup.get_access_token
+    provider: hexmod-backup.get_access_token:run
     inputs:
       client_id: auth_read.client_id
       client_secret: auth_read.client_secret
@@ -18,7 +18,7 @@ nodes:
     outputs:
       - access_token
   list_files:
-    provider: hexmod-backup.list_files
+    provider: hexmod-backup.list_files:run
     inputs:
       access_token: get_access_token.access_token
       path: .
