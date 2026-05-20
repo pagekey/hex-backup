@@ -9,7 +9,36 @@ layout:
       view: hexmod-backup.home
 
   - type: label
-    text: Use the button below to schedule a backup.
+    text: 1. Click below to make sure your token is set.
+
+  - type: button
+    text: "Show Token"
+    on_click:
+      graph:
+        id: hexmod-backup.show_token
+        inputs: {}
+
+  - type: label
+    text: graph:hexmod-backup.show_token:refresh_token
+
+  - type: label
+    text: 2. If the above tokens are not set, you must authorize.
+
+  - type: button
+    text: "Authorize"
+    on_click:
+      graph:
+        id: hexmod-backup.auth
+        inputs: {}
+
+  - type: label
+    text: Creds will be saved in the following file.
+
+  - type: label
+    text: graph:hexmod-backup.auth:secrets_path
+
+  - type: label
+    text: 3. Use the button below to schedule a backup.
 
   - type: text-field
     id: txtSource

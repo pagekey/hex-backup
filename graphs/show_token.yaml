@@ -1,0 +1,15 @@
+inputs: []
+outputs:
+  refresh_token: auth_filter.refresh_token
+nodes:
+  auth_read:
+    inputs: {}
+    outputs:
+      - refresh_token
+    provider: hexmod-backup.auth_read
+  auth_filter:
+    inputs:
+      refresh_token: auth_read.refresh_token
+    outputs:
+      - refresh_token
+    provider: hexmod-backup.auth_filter

@@ -1,0 +1,19 @@
+inputs: []
+outputs:
+  secrets_path: auth_write.secrets_path
+nodes:
+  auth:
+    inputs:
+      redirect_uri: https://tryhexbox.com/callback
+    outputs:
+      - access_token
+      - refresh_token
+      - expires_in
+      - token_type
+    provider: hexmod-backup.auth
+  auth_write:
+    inputs:
+      refresh_token: auth.refresh_token
+    outputs:
+      - secrets_path
+    provider: hexmod-backup.auth_write
