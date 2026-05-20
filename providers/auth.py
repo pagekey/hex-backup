@@ -1,3 +1,4 @@
+import json
 import os
 
 from hex import Params
@@ -9,7 +10,7 @@ import hashlib
 import base64
 
 
-def ui_input(prompt: str) -> str:
+def _ui_input(prompt: str) -> str:
     url = "http://127.0.0.1:8000/api/graphs/request_input"
     payload = {"prompt": prompt, "secure": False}
     response = requests.post(url, json=payload)
@@ -18,7 +19,7 @@ def ui_input(prompt: str) -> str:
     return response_json.get("response")
 
 
-def generate_url(client_id, redirect_uri, scope):
+def _generate_url(client_id, redirect_uri, scope):
     state = secrets.token_urlsafe(32)
     code_verifier = secrets.token_urlsafe(64)
     digest = hashlib.sha256(code_verifier.encode()).digest()
@@ -42,7 +43,7 @@ def generate_url(client_id, redirect_uri, scope):
     return url, code_verifier
 
 
-def generate_token(code, redirect_uri, client_id, client_secret, code_verifier):
+def _generate_token(code, redirect_uri, client_id, client_secret, code_verifier):
     resp = requests.post(
         "https://oauth2.googleapis.com/token",
         data={
@@ -69,6 +70,44 @@ def generate_token(code, redirect_uri, client_id, client_secret, code_verifier):
     }
 
 
+def filter(params: Params) -> dict[str, str]:
+    full_refresh_token = params.inputs.get("refresh_token", "")
+    return {
+        "refresh_token": f"{full_refresh_token[0:3]}**********{full_refresh_token[-3:]}",
+    }
+
+
+def read(params: Params) -> dict[str, str]:
+    data_dir = params.workspace / "hexmod-backup"
+    data_dir.mkdir(exist_ok=True, parents=True)
+    secrets_path = data_dir / "secrets.json"
+    data = json.loads(secrets_path.read_text())
+    return {
+        "client_id": data.get("client_id"),
+        "client_secret": data.get("client_secret"),
+        "refresh_token": data.get("refresh_token"),
+    }
+
+
+def write(params: Params) -> dict[str, str]:
+    refresh_token = params.inputs.get("refresh_token")
+    data_dir = params.workspace / "hexmod-backup"
+    data_dir.mkdir(exist_ok=True, parents=True)
+    secrets_path = data_dir / "secrets.json"
+    secrets_path.write_text(
+        json.dumps(
+            {
+                "client_id": os.getenv("GOOGLE_OAUTH_CLIENT_ID", ""),
+                "client_secret": os.getenv("GOOGLE_OAUTH_CLIENT_SECRET", ""),
+                "refresh_token": refresh_token,
+            }
+        )
+    )
+    return {
+        "secrets_path": str(secrets_path.absolute()),
+    }
+
+
 def run(params: Params) -> dict[str, str]:
     redirect_uri = params.inputs["redirect_uri"]
     client_id = os.getenv("GOOGLE_OAUTH_CLIENT_ID")
@@ -77,13 +116,13 @@ def run(params: Params) -> dict[str, str]:
     # scope = "https://www.googleapis.com/auth/drive"
     scope = "https://www.googleapis.com/auth/drive.readonly"  # uncomment to use readonly scope
 
-    url, code_verifier = generate_url(client_id, redirect_uri, scope)
+    url, code_verifier = _generate_url(client_id, redirect_uri, scope)
 
-    code = ui_input(
+    code = _ui_input(
         f'Click <a style="color: lightblue; text-decoration: underline;" target="_blank" href="{url}">here</a>. Then, paste the code: '
     )
 
-    creds = generate_token(code, redirect_uri, client_id, client_secret, code_verifier)
+    creds = _generate_token(code, redirect_uri, client_id, client_secret, code_verifier)
 
     return {
         "access_token": creds.get("access_token"),

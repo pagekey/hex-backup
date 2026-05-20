@@ -3,14 +3,14 @@ outputs:
   refresh_token: auth_filter.refresh_token
 nodes:
   auth_read:
-    provider: hexmod-backup.auth_read:run
+    provider: hexmod-backup.auth:read
     inputs: {}
     outputs:
       - client_id
       - client_secret
       - refresh_token
   auth_filter:
-    provider: hexmod-backup.auth_filter:run
+    provider: hexmod-backup.auth:filter
     inputs:
       refresh_token: auth_read.refresh_token
     outputs:

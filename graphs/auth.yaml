@@ -12,7 +12,7 @@ nodes:
       - expires_in
       - token_type
   auth_write:
-    provider: hexmod-backup.auth_write:run
+    provider: hexmod-backup.auth:write
     inputs:
       refresh_token: auth.refresh_token
     outputs:

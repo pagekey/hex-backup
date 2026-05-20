@@ -2,7 +2,7 @@ inputs: [src_folder, dst_folder]
 outputs: {}
 nodes:
   auth_read:
-    provider: hexmod-backup.auth_read:run
+    provider: hexmod-backup.auth:read
     inputs: {}
     outputs:
       - client_id

@@ -3,7 +3,7 @@ outputs:
   files: list_files.files
 nodes:
   auth_read:
-    provider: hexmod-backup.auth_read:run
+    provider: hexmod-backup.auth:read
     inputs: {}
     outputs:
       - client_id
