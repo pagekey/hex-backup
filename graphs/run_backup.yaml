@@ -1,14 +1,21 @@
-inputs: [src_folder, dst_folder, client_id, client_secret, refresh_token]
+inputs: [src_folder, dst_folder]
 outputs: {}
 nodes:
+  auth_read:
+    provider: hexmod-backup.auth_read
+    inputs: {}
+    outputs:
+      - client_id
+      - client_secret
+      - refresh_token
   get_access_token:
+    provider: hexmod-backup.get_access_token
     inputs:
-      client_id: root.client_id
-      client_secret: root.client_secret
-      refresh_token: root.refresh_token
+      client_id: auth_read.client_id
+      client_secret: auth_read.client_secret
+      refresh_token: auth_read.refresh_token
     outputs:
       - access_token
-    provider: hexmod-backup.get_access_token
   list_files:
     inputs:
       access_token: get_access_token.access_token

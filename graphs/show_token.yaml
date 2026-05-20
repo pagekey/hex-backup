@@ -5,6 +5,8 @@ nodes:
   auth_read:
     inputs: {}
     outputs:
+      - client_id
+      - client_secret
       - refresh_token
     provider: hexmod-backup.auth_read
   auth_filter:

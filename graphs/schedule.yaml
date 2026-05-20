@@ -1,25 +1,11 @@
-inputs: []
+inputs: [src_folder, dst_folder, daily_time]
 outputs:
   report: schedule.report
 nodes:
-  auth:
-    inputs:
-      redirect_uri: https://tryhexbox.com/callback
-    outputs:
-      - access_token
-      - refresh_token
-      - expires_in
-      - token_type
-    provider: hexmod-backup.auth
-  schedule_config:
-    inputs: {}
-    outputs: [src_folder, dst_folder, daily_time]
-    provider: hexmod-backup.schedule_config
   schedule:
     inputs:
-      src_folder: schedule_config.src_folder
-      dst_folder: schedule_config.dst_folder
-      daily_time: schedule_config.daily_time
-      refresh_token: auth.refresh_token
+      src_folder: root.src_folder
+      dst_folder: root.dst_folder
+      daily_time: root.daily_time
     outputs: [report]
     provider: hexmod-backup.schedule

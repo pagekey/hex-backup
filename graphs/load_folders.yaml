@@ -2,28 +2,18 @@ inputs: []
 outputs:
   files: list_files.files
 nodes:
-  get_client_id:
-    provider: hexmod-backup.get_env
-    inputs:
-      key: GOOGLE_OAUTH_CLIENT_ID
-    outputs:
-      - value
-  get_client_secret:
-    provider: hexmod-backup.get_env
-    inputs:
-      key: GOOGLE_OAUTH_CLIENT_SECRET
-    outputs:
-      - value
   auth_read:
     provider: hexmod-backup.auth_read
     inputs: {}
     outputs:
+      - client_id
+      - client_secret
       - refresh_token
   get_access_token:
     provider: hexmod-backup.get_access_token
     inputs:
-      client_id: get_client_id.value
-      client_secret: get_client_secret.value
+      client_id: auth_read.client_id
+      client_secret: auth_read.client_secret
       refresh_token: auth_read.refresh_token
     outputs:
       - access_token
