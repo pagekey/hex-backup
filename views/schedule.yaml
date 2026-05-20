@@ -32,17 +32,28 @@ layout:
         inputs: {}
 
   - type: label
-    text: Creds will be saved in the following file.
+    text: If you run the above, the path to the creds will appear below.
 
   - type: label
     text: graph:hexmod-backup.auth:secrets_path
 
   - type: label
+    text: 3. Load the folders using the button below.
+
+  - type: button
+    text: "Load folders"
+    on_click:
+      graph:
+        id: hexmod-backup.load_folders
+        inputs: {}
+
+  - type: label
     text: 3. Use the button below to schedule a backup.
 
-  - type: text-field
+  - type: dropdown
     id: txtSource
     label: Source folder (in Google Drive)
+    choices: graph:hexmod-backup.load_folders:files
 
   - type: text-field
     id: txtDestination
