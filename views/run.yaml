@@ -9,27 +9,64 @@ layout:
       view: hexmod-backup.home
 
   - type: label
-    text: Use the button below to run a backup.
+    text: 1. Click below to make sure your token is set.
 
   - type: button
-    text: "Run Backup (Guided)"
+    text: "Show Token"
     on_click:
       graph:
-        id: hexmod-backup.main
-        inputs:
-          input1: user
+        id: hexmod-backup.show_token
+        inputs: {}
 
   - type: label
-    text: "If you really know what you're doing, go ahead and manually run a backup:"
+    text: graph:hexmod-backup.show_token:refresh_token
+
+  - type: label
+    text: 2. If the above tokens are not set, you must authorize.
 
   - type: button
-    text: "Run Backup (Manual)"
+    text: "Authorize"
+    on_click:
+      graph:
+        id: hexmod-backup.auth
+        inputs: {}
+
+  - type: label
+    text: If you run the above, the path to the creds will appear below.
+
+  - type: label
+    text: graph:hexmod-backup.auth:secrets_path
+
+  - type: label
+    text: 3. Load the folders using the button below.
+
+  - type: button
+    text: "Load folders"
+    on_click:
+      graph:
+        id: hexmod-backup.load_folders
+        inputs: {}
+
+  - type: label
+    text: "4. Fill out the source and desintation of your backup."
+
+  - type: dropdown
+    id: txtSource
+    label: Source folder (in Google Drive)
+    choices: graph:hexmod-backup.load_folders:files
+
+  - type: text-field
+    id: txtDestination
+    label: Local destination folder
+
+  - type: button
+    text: "Run Backup"
     on_click:
       graph:
         id: hexmod-backup.run_backup
         inputs:
-          input1: user
+          src_folder: id:txtSource
+          dst_folder: id:txtDestination
 
   - type: label
-    id: result
-    text: ""
+    text: graph:hexmod-backup.run_backup:report

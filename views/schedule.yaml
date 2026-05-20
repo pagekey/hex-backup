@@ -48,7 +48,7 @@ layout:
         inputs: {}
 
   - type: label
-    text: 3. Use the button below to schedule a backup.
+    text: 5. Use the button below to schedule a backup.
 
   - type: dropdown
     id: txtSource

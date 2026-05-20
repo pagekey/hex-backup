@@ -10,7 +10,7 @@ nodes:
       - client_secret
       - refresh_token
   get_access_token:
-    provider: hexmod-backup.get_access_token:run
+    provider: hexmod-backup.auth:get_access_token
     inputs:
       client_id: auth_read.client_id
       client_secret: auth_read.client_secret
@@ -18,7 +18,7 @@ nodes:
     outputs:
       - access_token
   list_files:
-    provider: hexmod-backup.list_files:run
+    provider: hexmod-backup.google_drive_files:list
     inputs:
       access_token: get_access_token.access_token
       path: .
