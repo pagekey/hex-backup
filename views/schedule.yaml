@@ -1,13 +1,12 @@
 title: "Schedule Backup"
 
+description: Schedule a daily backup - set it and forget it!
+
+top_level: true
+
 effects: []
 
 layout:
-  - type: button
-    text: Back
-    on_click:
-      view: hexmod-backup.home
-
   - type: label
     text: 1. Click below to make sure your token is set.
 

@@ -1,13 +1,12 @@
 title: "Run Backup"
 
+description: Back up your Google Drive to a local folder for safekeeping.
+
+top_level: true
+
 effects: []
 
 layout:
-  - type: button
-    text: Back
-    on_click:
-      view: hexmod-backup.home
-
   - type: label
     text: 1. Click below to make sure your token is set.
 
