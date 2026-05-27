@@ -1,0 +1,37 @@
+title: "Run Backup"
+
+top_level: false
+
+effects:
+  - graph: hexmod-backup.load_folders
+
+layout:
+  - type: label
+    text: 1. Select a folder from your Google Drive to back up.
+
+  - type: dropdown
+    id: txtSource
+    label: Source folder (in Google Drive)
+    choices: graph:hexmod-backup.load_folders:files
+
+  - type: label
+    text: 2. Type the name of the folder on your HexBox where backups will be stored.
+
+  - type: label
+    text: This can be anything, but if you're not sure, use "backups".
+
+  - type: text-field
+    id: txtDestination
+    label: Local destination folder
+
+  - type: button
+    text: "Run Backup"
+    on_click:
+      graph:
+        id: hexmod-backup.run_backup
+        inputs:
+          src_folder: id:txtSource
+          dst_folder: id:txtDestination
+
+  - type: label
+    text: graph:hexmod-backup.run_backup:report

@@ -4,68 +4,41 @@ description: Back up your Google Drive to a local folder for safekeeping.
 
 top_level: true
 
-effects: []
+effects:
+  - graph: hexmod-backup.show_token
 
 layout:
   - type: label
-    text: 1. Click below to make sure your token is set.
+    text: Before we get started, let's make sure you're logged into Google Drive.
 
-  - type: button
-    text: "Show Token"
-    on_click:
-      graph:
-        id: hexmod-backup.show_token
-        inputs: {}
+  - type: container
+    visible_when: 
+      path: "hexmod-backup.show_token:token_status"
+      is: "active"
+    children:
+      - type: label
+        text: You're already logged in.
+      - type: label
+        text: Click Next to continue.
+      - type: button
+        text: Next
+        on_click:
+          view: hexmod-backup.run2
 
-  - type: label
-    text: graph:hexmod-backup.show_token:refresh_token
+  - type: container
+    visible_when: 
+      path: "hexmod-backup.show_token:token_status"
+      is: "not set"
+    children:
+      - type: label
+        text: 1. Click the button below to login.
 
-  - type: label
-    text: 2. If the above tokens are not set, you must authorize.
+      - type: button
+        text: "Authorize"
+        on_click:
+          graph:
+            id: hexmod-backup.auth
+            inputs: {}
 
-  - type: button
-    text: "Authorize"
-    on_click:
-      graph:
-        id: hexmod-backup.auth
-        inputs: {}
-
-  - type: label
-    text: If you run the above, the path to the creds will appear below.
-
-  - type: label
-    text: graph:hexmod-backup.auth:secrets_path
-
-  - type: label
-    text: 3. Load the folders using the button below.
-
-  - type: button
-    text: "Load folders"
-    on_click:
-      graph:
-        id: hexmod-backup.load_folders
-        inputs: {}
-
-  - type: label
-    text: "4. Fill out the source and desintation of your backup."
-
-  - type: dropdown
-    id: txtSource
-    label: Source folder (in Google Drive)
-    choices: graph:hexmod-backup.load_folders:files
-
-  - type: text-field
-    id: txtDestination
-    label: Local destination folder
-
-  - type: button
-    text: "Run Backup"
-    on_click:
-      graph:
-        id: hexmod-backup.run_backup
-        inputs:
-          src_folder: id:txtSource
-          dst_folder: id:txtDestination
-
-  - type: label
-    text: graph:hexmod-backup.run_backup:report
+      - type: label
+        text: 2. Refresh the page when you're done.

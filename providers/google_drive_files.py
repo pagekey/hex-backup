@@ -93,7 +93,7 @@ def save(params: Params) -> dict[str, str]:
         target_path = dst_path / file.get("name")
         target_path.write_text(file.get("content"))
         os.chmod(target_path, 0o777)
-        report.append(f"Wrote {target_path.resolve()}")
+        report.append(f"Wrote {target_path.resolve()}\n")
     return {
         "report": report,
     }
