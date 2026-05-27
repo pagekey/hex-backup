@@ -1,0 +1,48 @@
+title: "Schedule Backup"
+
+top_level: false
+
+effects:
+  - graph: hexmod-backup.load_folders
+
+layout:
+  - type: label
+    text: 1. Select a folder from your Google Drive to back up.
+
+  - type: dropdown
+    id: txtSource
+    label: Source folder (in Google Drive)
+    choices: graph:hexmod-backup.load_folders:files
+
+  - type: label
+    text: 2. Type the name of the folder on your HexBox where backups will be stored.
+
+  - type: label
+    text: This can be anything, but if you're not sure, use "backups".
+
+  - type: text-field
+    id: txtDestination
+    label: Local destination folder
+
+  - type: label
+    text: What time of day should the backup run?
+    
+  - type: label
+    text: Use military time - 05:00 is 5 am, 23:00 is 11 pm.
+
+  - type: text-field
+    id: txtDailyTime
+    label: Daily Time (HH:MM)
+
+  - type: button
+    text: "Schedule"
+    on_click:
+      graph:
+        id: hexmod-backup.schedule
+        inputs:
+          src_folder: id:txtSource
+          dst_folder: id:txtDestination
+          daily_time: id:txtDailyTime
+
+  - type: label
+    text: graph:hexmod-backup.schedule:report

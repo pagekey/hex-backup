@@ -1,6 +1,8 @@
 inputs: []
 outputs:
   refresh_token: auth_filter.refresh_token
+  token_status: auth_filter.token_status
+  secrets_path: auth_filter.secrets_path
 nodes:
   auth_read:
     provider: hexmod-backup.auth:read
@@ -15,3 +17,5 @@ nodes:
       refresh_token: auth_read.refresh_token
     outputs:
       - refresh_token
+      - token_status
+      - secrets_path

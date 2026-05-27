@@ -72,8 +72,16 @@ def _generate_token(code, redirect_uri, client_id, client_secret, code_verifier)
 
 def filter(params: Params) -> dict[str, str]:
     full_refresh_token = params.inputs.get("refresh_token", "")
+    if len(full_refresh_token) > 0:
+        token_status = "active"
+    else:
+        token_status = "not set"
+    data_dir = params.workspace / "hexmod-backup"
+    secrets_path = data_dir / "secrets.json"
     return {
         "refresh_token": f"{full_refresh_token[0:3]}**********{full_refresh_token[-3:]}",
+        "token_status": token_status,
+        "secrets_path": str(secrets_path),
     }
 
 
@@ -81,12 +89,19 @@ def read(params: Params) -> dict[str, str]:
     data_dir = params.workspace / "hexmod-backup"
     data_dir.mkdir(exist_ok=True, parents=True)
     secrets_path = data_dir / "secrets.json"
-    data = json.loads(secrets_path.read_text())
-    return {
-        "client_id": data.get("client_id"),
-        "client_secret": data.get("client_secret"),
-        "refresh_token": data.get("refresh_token"),
-    }
+    if secrets_path.exists():
+        data = json.loads(secrets_path.read_text())
+        return {
+            "client_id": data.get("client_id"),
+            "client_secret": data.get("client_secret"),
+            "refresh_token": data.get("refresh_token"),
+        }
+    else:
+        return {
+            "client_id": "",
+            "client_secret": "",
+            "refresh_token": "",
+        }
 
 
 def write(params: Params) -> dict[str, str]:
